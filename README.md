@@ -31,5 +31,6 @@ Single-service deployment: the backend serves the built React app in production.
 - Install dependencies (root): npm run dev
 - Run in dev mode: npm run dev
 
-Frontend → http://localhost:5173
-Backend API → http://localhost:4000
+Running on: http://localhost:4000
+
+- Deployed web service: https://doctor-appointment-app-5s9r.onrender.com/
