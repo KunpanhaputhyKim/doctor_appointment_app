@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import toast from "react-hot-toast";
-import axios from "axios";
+import { api } from "../lib/api";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -24,7 +24,7 @@ const useAppStore = create((set, get) => ({
 
   getDoctorsData: async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/api/doctor/list`);
+      const { data } = await api.get("/api/doctor/list");
       if (data.success) {
         set({ doctors: data.doctors });
       } else {
@@ -39,7 +39,7 @@ const useAppStore = create((set, get) => ({
   loadUserProfileData: async () => {
     const { token } = get();
     try {
-      const { data } = await axios.get(`${backendUrl}/api/user/get-profile`, {
+      const { data } = await api.get("/api/user/get-profile", {
         headers: { token },
       });
       if (data.success) {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import useAdminStore from "../../store/useAdminStore";
 import useDoctorStore from "../../store/useDoctorStore";
 import toast from "react-hot-toast";
-import axios from "axios";
+import { api } from "../../lib/api";
 import { useNavigate } from "react-router-dom";
 
 // Admin Login Component
@@ -17,15 +17,13 @@ const LoginAdmin = () => {
   const setAToken = useAdminStore((state) => state.setAToken);
   const setDToken = useDoctorStore((state) => state.setDToken);
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
   // Form Submission Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       if (state === "Admin") {
-        const { data } = await axios.post(backendUrl + "/api/admin/login", {
+        const { data } = await api.post("/api/admin/login", {
           email,
           password,
         });
@@ -37,7 +35,7 @@ const LoginAdmin = () => {
           toast.error(data.message);
         }
       } else {
-        const { data } = await axios.post(backendUrl + "/api/doctor/login", {
+        const { data } = await api.post("/api/doctor/login", {
           email,
           password,
         });

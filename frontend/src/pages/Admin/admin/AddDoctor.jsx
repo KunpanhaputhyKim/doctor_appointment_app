@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { adminAssets } from "../../../assets/adminAssets";
 import toast from "react-hot-toast";
-import axios from "axios";
+import { api } from "../../../lib/api";
 import useAdminStore from "../../../store/useAdminStore";
 import useAdminAppStore from "../../../store/useAdminAppStore";
 
@@ -54,8 +54,8 @@ const AddDoctor = () => {
         console.log(`${key}: ${value}`);
       });
 
-      const { data } = await axios.post(
-        backendUrl + "/api/admin/add-doctor",
+      const { data } = await api.post(
+        "/api/admin/add-doctor",
         formData,
         { headers: { aToken } }
       );

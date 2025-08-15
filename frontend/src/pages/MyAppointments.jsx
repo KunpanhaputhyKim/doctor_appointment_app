@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import useAppStore from "../store/useAppStore";
-import axios from "axios";
+import { api } from "../lib/api";
 import toast from "react-hot-toast";
 import { assets } from "../assets/assets";
 
@@ -40,7 +40,7 @@ const MyAppointments = () => {
   // Getting User Appointments Data Using API
   const getUserAppointments = async () => {
     try {
-      const { data } = await axios.get(backendUrl + "/api/user/appointments", {
+      const { data } = await api.get("/api/user/appointments", {
         headers: { token },
       });
       setAppointments(data.appointments.reverse());
@@ -53,8 +53,8 @@ const MyAppointments = () => {
   // Function to cancel appointment Using API
   const cancelAppointment = async (appointmentId) => {
     try {
-      const { data } = await axios.post(
-        backendUrl + "/api/user/cancel-appointment",
+      const { data } = await api.post(
+        "/api/user/cancel-appointment",
         { appointmentId },
         { headers: { token } }
       );
@@ -74,8 +74,8 @@ const MyAppointments = () => {
   // Function to make payment using stripe
   const appointmentStripe = async (appointmentId) => {
     try {
-      const { data } = await axios.post(
-        backendUrl + "/api/user/payment-stripe",
+      const { data } = await api.post(
+        "/api/user/payment-stripe",
         { appointmentId },
         { headers: { token } }
       );

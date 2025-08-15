@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import axios from "axios";
+import { api } from "../lib/api";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useAppStore from "../store/useAppStore";
 import toast from "react-hot-toast";
@@ -20,8 +20,8 @@ const Verify = () => {
   // Verify Stripe Payment
   const verifyStripe = async () => {
     try {
-      const { data } = await axios.post(
-        backendUrl + "/api/user/verifyStripe",
+      const { data } = await api.post(
+        "/api/user/verifyStripe",
         { success, appointmentId },
         { headers: { token } }
       );

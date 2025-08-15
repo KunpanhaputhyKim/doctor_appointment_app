@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import axios from "axios";
+import { api } from "../lib/api";
 import toast from "react-hot-toast";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -25,12 +25,9 @@ const useDoctorStore = create((set, get) => ({
   getAppointments: async () => {
     const { dToken } = get();
     try {
-      const { data } = await axios.get(
-        `${backendUrl}/api/doctor/appointments`,
-        {
-          headers: { dToken },
-        }
-      );
+      const { data } = await api.get("/api/doctor/appointments", {
+        headers: { dToken },
+      });
       if (data.success) {
         set({ appointments: data.appointments.reverse() });
       } else {
@@ -45,7 +42,7 @@ const useDoctorStore = create((set, get) => ({
   getProfileData: async () => {
     const { dToken } = get();
     try {
-      const { data } = await axios.get(`${backendUrl}/api/doctor/profile`, {
+      const { data } = await api.get("/api/doctor/profile", {
         headers: { dToken },
       });
       if (data.success) {
@@ -62,8 +59,8 @@ const useDoctorStore = create((set, get) => ({
   cancelAppointment: async (appointmentId) => {
     const { dToken, getAppointments, getDashData } = get();
     try {
-      const { data } = await axios.post(
-        `${backendUrl}/api/doctor/cancel-appointment`,
+      const { data } = await api.post(
+        "/api/doctor/cancel-appointment",
         { appointmentId },
         {
           headers: { dToken },
@@ -85,8 +82,8 @@ const useDoctorStore = create((set, get) => ({
   completeAppointment: async (appointmentId) => {
     const { dToken, getAppointments, getDashData } = get();
     try {
-      const { data } = await axios.post(
-        `${backendUrl}/api/doctor/complete-appointment`,
+      const { data } = await api.post(
+        "/api/doctor/complete-appointment",
         { appointmentId },
         {
           headers: { dToken },
@@ -108,7 +105,7 @@ const useDoctorStore = create((set, get) => ({
   getDashData: async () => {
     const { dToken } = get();
     try {
-      const { data } = await axios.get(`${backendUrl}/api/doctor/dashboard`, {
+      const { data } = await api.get("/api/doctor/dashboard", {
         headers: { dToken },
       });
       if (data.success) {

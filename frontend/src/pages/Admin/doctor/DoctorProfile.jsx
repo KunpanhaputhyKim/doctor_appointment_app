@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useDoctorStore from "../../../store/useDoctorStore";
 import useAdminAppStore from "../../../store/useAdminAppStore";
-import axios from "axios";
+import { api } from "../../../lib/api";
 import toast from "react-hot-toast";
 
 // Doctor Profile Component
@@ -29,8 +29,8 @@ const DoctorProfile = () => {
         available: editableData.available,
       };
 
-      const { data } = await axios.post(
-        backendUrl + "/api/doctor/update-profile",
+      const { data } = await api.post(
+        "/api/doctor/update-profile",
         updateData,
         { headers: { dToken: dToken } }
       );

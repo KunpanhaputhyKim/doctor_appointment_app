@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAppStore from "../store/useAppStore";
-import axios from "axios";
+import { api } from "../lib/api";
 import toast from "react-hot-toast";
 
 // Login Component
@@ -27,14 +27,14 @@ const Login = () => {
       let data;
 
       if (state === "Sign Up") {
-        const res = await axios.post(`${backendUrl}/api/user/register`, {
+        const res = await api.post("/api/user/register", {
           name,
           email,
           password,
         });
         data = res.data;
       } else {
-        const res = await axios.post(`${backendUrl}/api/user/login`, {
+        const res = await api.post("/api/user/login", {
           email,
           password,
         });

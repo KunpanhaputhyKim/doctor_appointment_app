@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import axios from "axios";
+import { api } from "../lib/api";
 import toast from "react-hot-toast";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -20,7 +20,7 @@ const useAdminStore = create((set, get) => ({
   getAllDoctors: async () => {
     const { aToken } = get();
     try {
-      const { data } = await axios.get(`${backendUrl}/api/admin/all-doctors`, {
+      const { data } = await api.get("/api/admin/all-doctors", {
         headers: { aToken },
       });
       if (data.success) {
@@ -36,8 +36,8 @@ const useAdminStore = create((set, get) => ({
   changeAvailability: async (docId) => {
     const { aToken, getAllDoctors } = get();
     try {
-      const { data } = await axios.post(
-        `${backendUrl}/api/admin/change-availability`,
+      const { data } = await api.post(
+        "/api/admin/change-availability",
         { docId },
         {
           headers: { aToken },
@@ -58,7 +58,7 @@ const useAdminStore = create((set, get) => ({
   getAllAppointments: async () => {
     const { aToken } = get();
     try {
-      const { data } = await axios.get(`${backendUrl}/api/admin/appointments`, {
+      const { data } = await api.get("/api/admin/appointments", {
         headers: { aToken },
       });
       if (data.success) {
@@ -75,8 +75,8 @@ const useAdminStore = create((set, get) => ({
   cancelAppointment: async (appointmentId) => {
     const { aToken, getAllAppointments } = get();
     try {
-      const { data } = await axios.post(
-        `${backendUrl}/api/admin/cancel-appointment`,
+      const { data } = await api.post(
+        "/api/admin/cancel-appointment",
         { appointmentId },
         {
           headers: { aToken },
@@ -97,7 +97,7 @@ const useAdminStore = create((set, get) => ({
   getDashData: async () => {
     const { aToken } = get();
     try {
-      const { data } = await axios.get(`${backendUrl}/api/admin/dashboard`, {
+      const { data } = await api.get("/api/admin/dashboard", {
         headers: { aToken },
       });
       if (data.success) {

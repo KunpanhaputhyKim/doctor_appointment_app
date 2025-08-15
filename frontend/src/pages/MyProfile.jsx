@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import useAppStore from "../store/useAppStore";
-import axios from "axios";
+import { api } from "../lib/api";
 import toast from "react-hot-toast";
 
 // My Profile Component
@@ -67,8 +67,8 @@ const MyProfile = () => {
 
       image && formData.append("image", image);
 
-      const { data } = await axios.post(
-        backendUrl + "/api/user/update-profile",
+      const { data } = await api.post(
+        "/api/user/update-profile",
         formData,
         { headers: { token } }
       );

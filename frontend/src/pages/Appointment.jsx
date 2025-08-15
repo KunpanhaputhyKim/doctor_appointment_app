@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
 import RelatedDoctors from "../components/RelatedDoctors";
 import useAppStore from "../store/useAppStore";
-import axios from "axios";
+import { api } from "../lib/api";
 import toast from "react-hot-toast";
 
 // Appointment Booking Component
@@ -108,10 +108,16 @@ const Appointment = () => {
     const slotDate = day + "_" + month + "_" + year;
 
     try {
-      const { data } = await axios.post(
-        backendUrl + "/api/user/book-appointment",
-        { docId, slotDate, slotTime },
-        { headers: { token } }
+      const { data } = await api.post(
+        "/api/user/book-appointment",
+        {
+          docId,
+          slotDate,
+          slotTime,
+        },
+        {
+          headers: { token },
+        }
       );
       if (data.success) {
         toast.success(data.message);
