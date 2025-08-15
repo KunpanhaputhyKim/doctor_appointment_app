@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
-    "start": "cross-env DOTENV_CONFIG_PATH=backend/.env NODE_ENV=production node -r dotenv/config backend/server.js",
+    "start": "node backend/server.js",
+    "start:local": "cross-env DOTENV_CONFIG_PATH=backend/.env NODE_ENV=production node -r dotenv/config backend/server.js",
     "dev": "concurrently -n API,WEB -c auto \"npm --prefix backend run server\" \"npm --prefix frontend run dev\""
   },
   "devDependencies": {
