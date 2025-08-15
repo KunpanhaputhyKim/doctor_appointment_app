@@ -26,36 +26,10 @@ Single-service deployment: the backend serves the built React app in production.
 
 ---
 
-## Monorepo Structure
-doctor_appointment_app/
-├─ backend/
-│ ├─ server.js
-│ ├─ routes/ controllers/ models/ configs/
-│ └─ .env # local only (gitignored)
-├─ frontend/
-│ ├─ src/
-│ ├─ index.html
-│ └─ vite.config.js # dev proxy /api -> 4000
-└─ package.json # root scripts drive dev/build/start
+## How to Run
 
-## Local Development
+- Install dependencies (root): npm run dev
+- Run in dev mode: npm run dev
 
-# 1) install deps
-npm install
-
-# 2) run dev (concurrently: API + Vite)
-npm run dev
-
-# API is at http://localhost:4000
-# Web is at http://localhost:5173 (proxied /api -> 4000)
-
-## Local Production
-
-npm run build          # installs backend+frontend, builds frontend
-npm run start:local    # serves frontend/dist + API on http://localhost:4000
-
-## Deploy
-
-Build Command: npm run build
-Start Command: npm start
-URL: https://doctor-appointment-app-5s9r.onrender.com/
+Frontend → http://localhost:5173
+Backend API → http://localhost:4000
