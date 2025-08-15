@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
+import path from "path";
+import { fileURLToPath } from "url";
 import connectDB from "./configs/db.js";
 import connectCloudinary from "./configs/cloudinary.js";
 import userRouter from "./routes/user.route.js";
@@ -20,7 +22,7 @@ app.use(express.json());
 app.use(cors());
 
 // Health Check
-app.get("/", (req, res) => {
+app.get("/health", (req, res) => {
   res.send("API is working!");
 });
 
@@ -28,6 +30,16 @@ app.get("/", (req, res) => {
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/doctor", doctorRouter);
+
+// ---- static serving for production ----
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const distPath = path.join(__dirname, "../frontend/dist");
+app.use(express.static(distPath));
+
+app.use((_req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
 
 // Port definition
 const PORT = process.env.PORT || 4000;
